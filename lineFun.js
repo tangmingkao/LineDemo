@@ -45,15 +45,8 @@ define([
                     type: 'plain',
                     bottom: '3%',
                     left: '5%',
-                    width: '70%',
                     orient: 'horizontal',
-                    formatter: 'Legend {name}',
-                    textStyle: {
-                        color: '#333',
-                        fontStyle: 'normal',
-                        fontWeight: 'normal',
-                        fontSize: 18
-                    },
+                    formatter: '{name}',
                     data: [
                         {
                             name: '无抵押',
@@ -101,7 +94,7 @@ define([
                 xAxis:{
                     show: true,
                     gridIndex: 0,
-                    position: 'top',
+                    position: 'bottom',
                     type: 'category',
                     name:  '时间',
                     axisLine: {
@@ -160,7 +153,7 @@ define([
                     gridIndex: 0,
                     position: 'top',
                     type: 'value',
-                    name:  '时间',
+                    name:  '业绩',
                     axisLine: {
                         show: true,
                         onZero: true
@@ -216,52 +209,67 @@ define([
                     show: true,
                     trigger: 'item'
                 },
-                series: [{
-                    //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
-                    name: '业绩',
-                    type: 'line',
-                    symbol: 'circle',
-                    hoverAnimation: true,
-                    legendHoverLink: true,
-                    label: {
+                series: [
+                    {
+                        //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+                        name: '无抵押',
+                        type: 'line',
+                        symbol: 'circle',
+                        hoverAnimation: true,
+                        legendHoverLink: true,
+                        label: {
+                            normal: {
+
+                            }
+
+                        },
+                        itemStyle: {
+
+                        },
+                        //系列中的数据内容数组。
+                        data: [1000,1200,1598,2908,4000,5000]
+                    },
+                    {
+                        //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+                        name: '有抵押',
+                            type: 'line',
+                        symbol: 'circle',
+                        hoverAnimation: true,
+                        legendHoverLink: true,
+                        label: {
                         normal: {
 
                         }
 
                     },
-                    itemStyle: {
+                        itemStyle: {
 
+                        },
+                        //系列中的数据内容数组。
+                        //系列中的数据内容数组。
+                        data: [1300,3200,3800,4000,4400,5200]
                     },
-                    //系列中的数据内容数组。
-                    data: [
-                        {
-                            name: '',
-                            value: '1000'
+                    {
+                        //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+                        name: 'O2O',
+                            type: 'line',
+                        symbol: 'circle',
+                        hoverAnimation: true,
+                        legendHoverLink: true,
+                        label: {
+                        normal: {
 
-                        },
-                        {
-                            name: '',
-                            value: '2000'
-                        },
-                        {
-                            name: '',
-                            value: '3000'
-                        },
-                        {
-                            name: '',
-                            value: '4000'
-                        },
-                        {
-                            name: '',
-                            value: '5000'
-                        },
-                        {
-                            name: '',
-                            value: '6000'
                         }
 
-                    ]
-                }]
+                    },
+                        itemStyle: {
+
+                        },
+                        //系列中的数据内容数组。
+                        //系列中的数据内容数组。
+                        data: [1089,1921,2567,3,4520,5990]
+                    }
+                ]
             };
 
             var myCharts = echarts.init(targetElem);
