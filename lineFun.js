@@ -214,7 +214,8 @@ define([
                         //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
                         name: '无抵押',
                         type: 'line',
-                        symbol: 'circle',
+                        symbol: 'emptyCircle',
+                        symbolSize: 8,
                         hoverAnimation: true,
                         legendHoverLink: true,
                         label: {
@@ -232,8 +233,9 @@ define([
                     {
                         //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
                         name: '有抵押',
-                            type: 'line',
-                        symbol: 'circle',
+                        type: 'line',
+                        symbol: 'emptyCircle',
+                        symbolSize: 8,
                         hoverAnimation: true,
                         legendHoverLink: true,
                         label: {
@@ -252,8 +254,9 @@ define([
                     {
                         //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
                         name: 'O2O',
-                            type: 'line',
-                        symbol: 'circle',
+                        type: 'line',
+                        symbol: 'emptyCircle',
+                        symbolSize: 8,
                         hoverAnimation: true,
                         legendHoverLink: true,
                         label: {
@@ -267,7 +270,7 @@ define([
                         },
                         //系列中的数据内容数组。
                         //系列中的数据内容数组。
-                        data: [1089,1921,2567,3,4520,5990]
+                        data: [1089,1921,2567,300,4920,5990]
                     }
                 ]
             };
