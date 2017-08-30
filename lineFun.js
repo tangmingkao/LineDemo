@@ -1,17 +1,13 @@
-/**
- * Created by Administrator on 2017/8/29.
- */
 
 /**
  * Created by ex-tangmingkao001 on 17/8/22.
  */
 
 define([
-    "Zepto",
+    "zepto",
     "echarts"
 ], function($,echarts) {
     "use strict";
-    //
     var lineFun = {
         linefun: function(elem,options) {
             var targetElem;
@@ -26,7 +22,7 @@ define([
             var settings = {
                 title: {
                     show: true,
-                    text: '折线图',
+                    text: '',
                     link: 'line',
                     target: 'blank',
                     textStyle: {
@@ -72,44 +68,48 @@ define([
                     ]
                 },
                 grid: {
-                    show: false,
-                    zlevel: 0,
-                    z: 2,
-                    left: '10%',
-                    top: 60,
-                    right: '10%',
-                    bottom: 60,
-                    width: 'auto',
-                    height: 'auto',
-                    containLabel: false,
-                    backgroundColor: 'transparent',
-                    borderColor: '#ccc',
-                    borderWidth: 1,
-                    shadowBlur: "",
-                    shadowColor: "",
-                    shadowOffsetX: 0,
-                    shadowOffsetY: 0,
-                    tooltip: {}
+                    show: true,
+                    containLabel: false,                     
+                    top: 44,
+                    left: '22%',
+                    right: '12%',
+                    bottom: 60            
                 },
                 xAxis:{
                     show: true,
                     gridIndex: 0,
+                    boundaryGap: false,
                     position: 'bottom',
                     type: 'category',
                     name:  '时间',
+//                  offset: -30,					
                     axisLine: {
-                        show: true,
-                        onZero: true
+                        show: false,
+                        onZero: true,
+                        lineStyle: {
+                        		shadowColor : '#333',
+                        		shadowOffsetX: -30,
+                        		opacity: 1
+                        }
                     },
-                    axisLable: {
-
+                    axisTick: {
+                    		show: false,
+                    		interval: 5,
+                    		length: 15,
+                    		lineStyle: {
+                    			color: '#ccc',
+                    		}
+                    },
+                    axisLabel: {
+						inside: false,
+						align: 'left'
                     },
                     splitLine: {
                         show: true,
                         lineStyle: {
                             color: ['#ccc'],
-                            type: 'solid'
-                        }
+                            type: 'solid',
+                        }                      
                     },
                     data: [
                         {
@@ -151,28 +151,41 @@ define([
                 yAxis: {
                     show: true,
                     gridIndex: 0,
-                    position: 'top',
+                    position: 'left',
+                    offset: 0,
                     type: 'value',
                     name:  '业绩',
+					scale: true,
                     axisLine: {
-                        show: true,
+                        show: false,
                         onZero: true
                     },
-                    axisLable: {
-
+                    axisTick: {
+                    		show: true,
+                    		length: 25,
+                    		lineStyle: {
+                    			color: '#ccc',
+                    		}
+                    },                
+                    axisLabel: {
+                    		show: true,
+						margin: 25
                     },
+                    
                     splitLine: {
                         show: true,
                         lineStyle: {
-                            color: ['#ccc'],
-                            type: 'solid'
+                            color: '#ccc', //分割线颜色
+                            shadowColor: '#ccc', //阴影颜色
+                            shadowOffsetX: 45, //阴影水平方向上的偏移距离
+                            opacity: 1 //图形透明度
                         }
                     },
                     data: [
                         {
                             value: 1000,
                             textStyle: {
-
+							
                             }
                         },
                         {
@@ -211,13 +224,21 @@ define([
                 },
                 series: [
                     {
-                        //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
-                        name: '无抵押',
-                        type: 'line',
-                        symbol: 'emptyCircle',
-                        symbolSize: 8,
-                        hoverAnimation: true,
-                        legendHoverLink: true,
+	                    //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+	                    name: '无抵押',
+	                    type: 'line',
+	                    symbol: 'emptyCircle',
+	                    symbolSize: 8,
+	                    hoverAnimation: true,
+	                    legendHoverLink: true,                   
+	                		clipOverflow: false,
+	                		areaStyle: {
+	                			normal: {
+	                    			shadowBlur: 0,
+	                    			shadowColor: '#e53f4b',                        		
+	                    			opacity: 0.1
+	                			}
+                    	   },		               
                         label: {
                             normal: {
 
@@ -237,13 +258,14 @@ define([
                         symbol: 'emptyCircle',
                         symbolSize: 8,
                         hoverAnimation: true,
-                        legendHoverLink: true,
-                        label: {
-                        normal: {
-
-                        }
-
-                    },
+                        legendHoverLink: true,                 
+                        areaStyle: {
+	                			normal: {
+	                    			shadowBlur: 0,
+	                    			shadowColor: '#e58a1f',                        		
+	                    			opacity: 0.1
+	                			}
+                    	   },	                     
                         itemStyle: {
 
                         },
@@ -259,12 +281,13 @@ define([
                         symbolSize: 8,
                         hoverAnimation: true,
                         legendHoverLink: true,
-                        label: {
-                        normal: {
-
-                        }
-
-                    },
+                        areaStyle: {
+	                			normal: {
+	                    			shadowBlur: 0,
+	                    			shadowColor: '#983ac3',                        		
+	                    			opacity: 0.1
+	                			}
+                    	   },	          
                         itemStyle: {
 
                         },
