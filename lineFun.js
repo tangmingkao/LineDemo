@@ -17,15 +17,15 @@ define([
             } else {
                 targetElem = elem[0];
             }
+            //加载echarts图容器
+            var myCharts = echarts.init(targetElem);
 
             //默认配置
             var settings = {
                 title: {
                     show: true,
                     text: '(元)',
-                    link: 'line',
-                    target: 'blank',
-                    padding: [10,0,0,35],
+                    padding: [10,0,0,55],
                     textStyle: {
                         color: '#333',
                         fontStyle: 'normal',
@@ -70,11 +70,12 @@ define([
                 },
                 grid: {
                     show: true,
-                    containLabel: false,                     
+                    containLabel: false,
                     top: 44,
                     left: '22%',
                     right: '12%',
-                    bottom: 60            
+                    bottom: 60,
+                    borderWidth: 0
                 },
                 xAxis:{
                     show: true,
@@ -222,7 +223,7 @@ define([
                 },
                 tooltip: {
                     show: true,
-                    trigger: 'item'
+                    trigger: 'axis'
                 },
                 series: [
                     {
@@ -299,9 +300,43 @@ define([
                     }
                 ]
             };
-            var myCharts = echarts.init(targetElem);
-            
-            
+
+
+            /*
+             * Created  on 17/8/22.
+             * 配置项兼容处理
+             * options , 数据类型Object.
+             * 1. titleName, 数据类型，string. 用例：titleName = '价格'。
+             * 2. titlePosition. 数据类型：[] ,用例：titlePosition = [10,10,10,10],分别是上下左右的间距。
+             * 数组中每个元素是number类型。其实相对于容器的距离。相当设置padding值
+             * 3. color,数据类型： [],用例： color: ['#e53f4b', '#e58a1f', '#983ac3','#e17413','#20a6ab'],
+             * 4. symbolShow,数据类型 Boolean，用例：symbolShow = true,用来表示图例是否展示。
+             *
+             *
+             *
+             */
+            if(options && options.hasOwnProperty('titleName') && typeof options.titleName == 'string'){
+                settings.title.text = options.titleName;
+            }
+            //这里是为了兼容我的业绩y轴上显示‘（元）’和y轴数据对其。其实y轴有显示名称的属性。但是无法设置和数据对其
+            if(options && options.hasOwnProperty('titlePosition') && options.titlePosition instanceof Array){
+                if(options.titlePosition.length > 1){
+                    for (var i = 0 ; i < options.titlePosition.length; i++){
+                        settings.title.padding[i] =   options.pieRadius[i];
+                    }
+                }
+            }
+            if(options && options.hasOwnProperty('color') && options.color instanceof Array){
+                if(options.color.length > 1){
+                    for (var j = 0 ; j < options.color.length; j++){
+                       settings.color[j] = options.color[j];
+                    }
+                }
+            }
+            if(options && options.hasOwnProperty('symbolShow') && typeof options.symbolShow == 'boolean'){
+                settings.legend.show = options.symbolShow;
+            }
+
             // 使用刚指定的配置项和数据显示图表。
             myCharts.setOption(settings);
         },
