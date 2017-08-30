@@ -22,14 +22,15 @@ define([
             var settings = {
                 title: {
                     show: true,
-                    text: '',
+                    text: '(元)',
                     link: 'line',
                     target: 'blank',
+                    padding: [10,0,0,35],
                     textStyle: {
                         color: '#333',
                         fontStyle: 'normal',
                         fontWeight: 'normal',
-                        fontSize: 18
+                        fontSize: 12
 
                     }
                 },
@@ -39,8 +40,8 @@ define([
                 legend: {
                     show: true,
                     type: 'plain',
-                    bottom: '3%',
-                    left: '5%',
+                    bottom: '2%',
+                    left: '30%',
                     orient: 'horizontal',
                     formatter: '{name}',
                     data: [
@@ -81,7 +82,7 @@ define([
                     boundaryGap: false,
                     position: 'bottom',
                     type: 'category',
-                    name:  '时间',
+                    name:  '月份',
 //                  offset: -30,					
                     axisLine: {
                         show: false,
@@ -154,15 +155,16 @@ define([
                     position: 'left',
                     offset: 0,
                     type: 'value',
-                    name:  '业绩',
+//                  name:  '(元)',
 					scale: true,
+					nameGap: 10,
+					nameLocation: 'end',
                     axisLine: {
                         show: false,
-                        onZero: true
-                    },
+                    },                    
                     axisTick: {
                     		show: true,
-                    		length: 25,
+                    		length: 20,
                     		lineStyle: {
                     			color: '#ccc',
                     		}
@@ -297,8 +299,9 @@ define([
                     }
                 ]
             };
-
             var myCharts = echarts.init(targetElem);
+            
+            
             // 使用刚指定的配置项和数据显示图表。
             myCharts.setOption(settings);
         },
