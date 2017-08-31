@@ -9,10 +9,25 @@
     <script data-mian="main" src="require.js"></script>
 </head>
 <body>
-<div id="tmk1" style="width: 500px;height: 300px"></div>
+<div id="tmk1" style="width: 400px;height: 300px"></div>
 <script>
     require(['lineFun'], function (lineFun) {
-        lineFun.linefun($("#tmk1")[0]);
+        lineFun.linefun($("#tmk1")[0],
+        {
+        		symbolOrient: 'horizontal',
+        		symbolPosition: {
+        			bottom: '3%',
+        			left: '30%'
+        		},
+        		symbolIcon: 'circle',
+        		symbolTextColor: '#ccc',
+        		xAxisNameLocation: 'end',
+//      		xAxisName: '月份',
+        		xSplitLineShow: true,        		
+        		xData: ['周一','周二','周三','周四','周五','周六'],
+//      		xDataTextStyle: {color: '#d31c85'},
+        		
+        	});
     });
 </script>
 
