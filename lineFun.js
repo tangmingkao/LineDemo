@@ -569,11 +569,44 @@ define([
                 settings.yAxis.max = options.yMax ;
              }
             if(options && options.hasOwnProperty('dataOptions') && options.dataOptions instanceof Object) {
-                var arr4 = Object.keys(options.gridPosition);
+                var arr4 = Object.keys(options.dataOptions);
 
 
             }
 
+
+
+            var obj = {
+                //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+                name: '用例二',
+                type: 'line',
+                symbol: 'emptyCircle',
+                symbolSize: 8,
+                hoverAnimation: true,
+                legendHoverLink: true,
+                areaStyle: {
+//						normal: {
+//							shadowBlur: 0,
+//							shadowColor: '#e58a1f',
+//							opacity: 0.1
+//						}
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#e58a1f'
+                        }, {
+                            offset: 1,
+                            color: '#fff'
+                        }]),
+                        opacity: 0.5
+                    }
+                },
+                itemStyle: {
+
+                },
+                //系列中的数据内容数组。
+                data: [1300, 3200, 3800, 4000, 4400, 5200]
+            };
 
               
 			
