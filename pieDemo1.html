@@ -14,23 +14,26 @@
     require(['lineFun'], function (lineFun) {
         lineFun.linefun($("#tmk1")[0],
         {
-        		symbolOrient: 'horizontal',
-        		symbolPosition: {
-        			bottom: '3%',
-        			left: '30%'
-        		},
-        		symbolIcon: 'circle',
-        		symbolTextColor: '#ccc',
-        		xAxisNameLocation: 'end',
+            symbolOrient: 'horizontal',
+            symbolPosition: {
+                bottom: '3%',
+                left: '30%'
+            },
+
+            symbolIcon: 'circle',
+            color: ['#e53f4b','#e58a1f','#983ac3'],
+            symbolData:['无抵押','有抵押','O2O'],
+            symbolTextColor: '#ccc',
+            xAxisNameLocation: 'end',
 //      		xAxisName: '月份',
-        		xSplitLineShow: true,
-        		halfLineShow: true,
-        		ySplitLineLength: 45,
+            xSplitLineShow: true,
+            halfLineShow: true,
+            ySplitLineLength: 45,
 //      		yData: [1000,2000,3000,4000,5000,7000],
-        		xData: ['周一','周二','周三','周四','周五','周六'],
+            xData: ['周一','周二','周三','周四','周五','周六'],
 //      		xDataTextStyle: {color: '#d31c85'},
-        		
-        	});
+
+        });
     });
 </script>
 

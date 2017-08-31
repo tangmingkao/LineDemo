@@ -95,7 +95,7 @@ define([
 						interval: 5,
 						length: 10,
 						lineStyle: {
-							color: '#ccc',
+							color: '#ccc'
 						}
 					},
 					axisLabel: {
@@ -277,7 +277,7 @@ define([
                                     color: '#fff'
                                 }]),
                                 opacity: 0.5
-                            }
+						}
 					},
 					
 					itemStyle: {
@@ -331,7 +331,8 @@ define([
 			 * 33. ySpitNumber,数据类型: Number,用例:ySpitNumber: 5,默认是5段.含义y轴最大值和最小值的分隔.(ps:这个值不是绝对的.这个分割段数只是个预估值，
 			 * 	最后实际显示的段数会在这个基础上根据分割后坐标轴刻度显示的易读程度作调整。例如:你设置8,min:1000,max:6000,但最终也只是分成5份)
 			 * 34. yMin,yMax.数据类型: number,用例:yMin: 1000,yMax: 6000.刻度的最小值和最大值.和上面的分割段数配合使用.
-			 * 
+			 * 35. dataOptions,数据类型：Object，用例：dataOptions：{data1：[1000,2000,3000,4000,5000],data2:[1200,1800,2200,3300,4400,5030]....data5:[...]..}
+			 *     保证dataOptions属性个数和需要的图例个数一致。即如果图例有3个，这里的属性各数也需要三个。为了下面的配置好处理，注意用data1...data6的命名规范。
 			 * 
 			 */
 			if(options && options.hasOwnProperty('titleName') && typeof options.titleName == 'string') {
@@ -345,13 +346,7 @@ define([
 					}
 				}
 			}
-			if(options && options.hasOwnProperty('color') && options.color instanceof Array) {
-				if(options.color.length > 0) {
-					for(var j = 0; j < options.color.length; j++) {
-						settings.color[j] = options.color[j];
-					}
-				}
-			}
+
 			if(options && options.hasOwnProperty('symbolShow') && typeof options.symbolShow == 'boolean') {
 				settings.legend.show = options.symbolShow;
 			}
@@ -407,11 +402,41 @@ define([
 							textStyle: {
 								color: '#ccc'
 							}
-						}
+						};
+						//保证settings.series[l].name的值和图例options.symbolData[l]的值一致。
+                        settings.series[l].name = options.symbolData[l];
 
 					}
 				}
 			}
+            if(options && options.hasOwnProperty('color') && options.color instanceof Array) {
+                if(options.color.length > 0) {
+                    // var tempColorLth = options.color.length;
+					// var tempSymbolDataLth = settings.legend.data.length;
+					// var cercleTimes;
+					// if(tempColorLth > tempSymbolDataLth){
+                    //
+					// } else {
+					// 	cercleTimes = tempSymbolDataLth%tempColorLth;
+					// }
+					//由于颜色循环使用的问题，所以为了不产生错误，最好设置颜色的个数>=图例的个数.
+					//这里还有个问题，因为事先并不知道 settings.series[j]的个数。所以放在这里处理也是不恰当的。应该
+					//放在 settings.series[j]数据处理之后。
+                    for(var j = 0; j < options.color.length; j++) {
+                        settings.color[j] = options.color[j];
+                        //设置折线渐变效果，和颜色值匹配 。但是这里有个问题，颜色值是循环使用的，如果颜色值少于
+                        //图例个数的话，这种处理是不恰当的。所以把这个放到图例个数处理之后。
+                        settings.series[j].areaStyle.normal.color = new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: options.color[j]
+                        }, {
+                            offset: 1,
+                            color: '#fff'
+                        }]);
+                    }
+                }
+                //否则就用缺省的配置，正好个数一致。
+            }
 			//把图标形状和字体颜色放在数据下面再处理,先处理数据,再改图形和字体颜色.
 			var tempIcon = (options && options.hasOwnProperty('symbolIcon') && typeof options.symbolIcon == 'string') ? options.symbolIcon : 'circle';
 			var tempSymbolTextColor = (options && options.hasOwnProperty('symbolTextColor') && typeof options.symbolTextColor == 'string') ? options.symbolTextColor : '#ccc';
@@ -438,7 +463,7 @@ define([
 						settings.grid[tempArr1[n]] = '';
 					}	
 				}
-				arr.forEach(function(element) {
+				arr1.forEach(function(element) {
 					if(!element) {
 						return false;
 					}
@@ -543,8 +568,13 @@ define([
 		 	if(options && options.hasOwnProperty('yMax') && typeof options.yMax == 'number'){
                 settings.yAxis.max = options.yMax ;
              }
-		 	
-		 	
+            if(options && options.hasOwnProperty('dataOptions') && options.dataOptions instanceof Object) {
+                var arr4 = Object.keys(options.gridPosition);
+
+
+            }
+
+
               
 			
 			
