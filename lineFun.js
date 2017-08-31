@@ -150,6 +150,9 @@ define([
 					//name:  '(元)',
 					scale: true,
 					nameGap: 10,
+					splitNumber: 5,
+					min: 0,
+					max: 6000,
 //					nameLocation: 'end',
 					axisLine: {
 						show: false,
@@ -163,7 +166,10 @@ define([
 					},
 					axisLabel: {
 						show: true,
-						margin: 25
+						margin: 25,
+						textStyle:{
+							color: '#ccc'
+						}
 					},
 
 					splitLine: {
@@ -175,37 +181,7 @@ define([
 							opacity: 1 //图形透明度
 						}
 					},
-					data: [{
-						value: 1000,
-						textStyle: {
-
-						}
-					}, {
-						value: 2000,
-						textStyle: {
-
-						}
-					}, {
-						value: 3000,
-						textStyle: {
-
-						}
-					}, {
-						value: 4000,
-						textStyle: {
-
-						}
-					}, {
-						value: 5000,
-						textStyle: {
-
-						}
-					}, {
-						value: 6000,
-						textStyle: {
-
-						}
-					}]
+					data: []			
 				},
 				tooltip: {
 					show: true,
@@ -221,11 +197,21 @@ define([
 					legendHoverLink: true,
 					clipOverflow: false,
 					areaStyle: {
+//						normal: {
+//							shadowBlur: 0,
+//							shadowColor: '#e53f4b',
+//							opacity: 0.1
+//						}
 						normal: {
-							shadowBlur: 0,
-							shadowColor: '#e53f4b',
-							opacity: 0.1
-						}
+	                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+	                                    offset: 0,
+	                                    color: '#e53f4b'
+	                                }, {
+	                                    offset: 1,
+	                                    color: '#fff'
+	                                }]),
+	                                opacity: 0.5
+	                    }
 					},
 					label: {
 						normal: {
@@ -247,16 +233,25 @@ define([
 					hoverAnimation: true,
 					legendHoverLink: true,
 					areaStyle: {
+//						normal: {
+//							shadowBlur: 0,
+//							shadowColor: '#e58a1f',
+//							opacity: 0.1
+//						}
 						normal: {
-							shadowBlur: 0,
-							shadowColor: '#e58a1f',
-							opacity: 0.1
-						}
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#e58a1f'
+                                }, {
+                                    offset: 1,
+                                    color: '#fff'
+                                }]),
+                                opacity: 0.5
+                        }
 					},
 					itemStyle: {
 
 					},
-					//系列中的数据内容数组。
 					//系列中的数据内容数组。
 					data: [1300, 3200, 3800, 4000, 4400, 5200]
 				}, {
@@ -268,16 +263,26 @@ define([
 					hoverAnimation: true,
 					legendHoverLink: true,
 					areaStyle: {
+//						normal: {
+//							shadowBlur: 0,
+//							shadowColor: '#983ac3',
+//							opacity: 0.1
+//						}
 						normal: {
-							shadowBlur: 0,
-							shadowColor: '#983ac3',
-							opacity: 0.1
-						}
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#983ac3'
+                                }, {
+                                    offset: 1,
+                                    color: '#fff'
+                                }]),
+                                opacity: 0.5
+                            }
 					},
+					
 					itemStyle: {
 
-					},
-					//系列中的数据内容数组。
+					},				
 					//系列中的数据内容数组。
 					data: [1089, 1921, 2567, 300, 4920, 5990]
 				}]
@@ -287,6 +292,7 @@ define([
 			 * Created  on 17/8/28.
 			 * 配置项兼容处理
 			 * options , 数据类型Object.
+			 * (基本配置和图例配置:)
 			 * 1. titleName, 数据类型，string. 用例：titleName : '价格'。
 			 * 2. titlePosition. 数据类型：[] ,用例：titlePosition : [10,10,10,10],分别是上下左右的间距。
 			 *    数组中每个元素是number类型。其实相对于容器的距离。相当设置padding值
@@ -299,7 +305,7 @@ define([
 			 * 9. symbolTextColor,数据类型: string,用例: symbolTextColor : '#ccc'.含义: 图例文字颜色.支持16进制颜色值和rgb.
 			 * 10. gridShow,数据类型: Boolean,用例: gridShow: true.含义: 是否显示grid网格.
 			 * 11. gridPosition,数据类型: Object,用例: gridPosition: {top: '3%',right: '3%'}.用来处理网格位置.(ps: 这两个参数在本次需求中作用不大.)
-			 * 
+			 * (X轴配置:)
 			 * 12. xAxisBoundaryGap,数据类型: Boolean,用例: xAxisBoundaryGap: true,默认是false.x轴坐标刻度显示的位置.设置为true时显示在两个刻度中间位置.
 			 * 13. xAxisPosition,数据类型: string,用例: xAxisPosition: 'top'.默认是'bottom'.可选: 'top','bottom'.含义: x坐标显示在上面还是下面.
 			 * 14. xAxisNameLocation,数据类型: string,用例: xAxisNameLocation: 'end'.默认是'end'.可选:'start','middle','end'.含义: 坐标名称的位置.
@@ -311,14 +317,20 @@ define([
 			 * 20. xSplitLineShow,数据类型: Boolean,用例:xSplitLineShow: true,默认显示.含义: 分隔线是否显示.
 			 * 21. xData,数据类型: [],用例: xData: ['周一','周二','周三','周四'].含义: x轴的每个刻度名称.
 			 * 22. xDataTextStyle,数据类型: Object,用例:xDataTextStyle:{color: '#ccc'},含义:xData数据的颜色显示.
-			 *
+			 * (Y轴配置:)
 			 * 23. yAxisPosition,数据类型: string,用例: yAxisPosition: 'left'.默认是'left'.可选: 'left','right'.含义: Y坐标显示在左边还是右边.
 			 * 24. yAxisName,数据类型: string,用例: yAxisName: '(元)'.默认不显示.设置了yAxisName值就显示.
 			 * 25. yAxisNameLocation,数据类型: string,用例: yAxisNameLocation: 'end'.可选:'start','middle','end'.含义: 坐标名称的位置.默认尾部.
-			 * 26. axisTickShowY,数据类型: Boolean,用例:axisTickShowY: true,默认显示.
-			 * 
-			 * 
-			 * 
+			 * 26. yAxisTickShow,数据类型: Boolean,用例:yAxisTickShow: true,默认显示.含义刻度是否显示.(ps: 这个设置是为了两边突出部分.)
+			 * 27. yAxisLineMargin,数据类型: Number,用例:yAxisLineMargin: 25.含义y轴标度和Y轴的距离.
+			 * 28. ySplitLineShow,数据类型: Boolean,用例:ySplitLineShow: true,默认显示.含义Y轴分割线.(即横线).
+			 * 29. ySplitLineLength,数据类型: Number,用例:ySplitLineLength: 45,含义:右边多出半边长度.(ps:这里其实阴影实现的.echarts本身没有这样的配置)
+			 * 30. halfLineShow,数据类型: Boolean,用例:halfLineShow: true,默认显示.含义:两边半边是否显示.(ps:这里主要兼容有些地方如果不要多余部分)
+			 * 31. yDataTextStyle,数据类型: Object,用例:yDataTextStyle:{color: '#ccc'},含义:yData数据的颜色显示.
+			 * 32. yData: (ps: 这里并不需要设置y轴的数据,因为是value类型,会自动根据数据分隔,默认分隔成5段.但是下面有几个需要注意的.)
+			 * 33. ySpitNumber,数据类型: Number,用例:ySpitNumber: 5,默认是5段.含义y轴最大值和最小值的分隔.(ps:这个值不是绝对的.这个分割段数只是个预估值，
+			 * 	最后实际显示的段数会在这个基础上根据分割后坐标轴刻度显示的易读程度作调整。例如:你设置8,min:1000,max:6000,但最终也只是分成5份)
+			 * 34. yMin,yMax.数据类型: number,用例:yMin: 1000,yMax: 6000.刻度的最小值和最大值.和上面的分割段数配合使用.
 			 * 
 			 * 
 			 */
@@ -464,17 +476,40 @@ define([
 			}
 			if(options && options.hasOwnProperty('yAxisName') && typeof options.yAxisName == 'string') {
 				$.extend(settings.yAxis, {name: options.yAxisName});
-			}
-		
+			}		
 			if(options && options.hasOwnProperty('axisTickShow') && typeof options.axisTickShow == 'boolean') {
 				settings.xAxis.axisTick.show = options.axisTickShow;
+			}			
+			//这里显示是为了兼容两边多出半边的.用刻度线代替那半边,另外一边多出的半边是用分割线的阴影实现的.
+			//若以后对半边线的长短有要求,则可以增加一个配置参数.写法类似.settings.yAxis.axisTick.length = options.yAxisTickLength;
+			if(options && options.hasOwnProperty('yAxisTickShow') && typeof options.yAxisTickShow == 'boolean') {
+				settings.yAxis.axisTick.show = options.yAxisTickShow;
 			}
+			//刻度文字和轴线距离.
+			if(options && options.hasOwnProperty('yAxisLineMargin') && typeof options.yAxisLineMargin == 'number'){
+                settings.yAxis.axisLabel.margin = options.yAxisLineMargin ;
+             }
+		
 			if(options && options.hasOwnProperty('axisLineShow') && typeof options.axisLineShow == 'boolean') {
 				settings.xAxis.axisLine.show = options.axisLineShow;
 			}
 			if(options && options.hasOwnProperty('xSplitLineShow') && typeof options.xSplitLineShow == 'boolean') {
 				settings.xAxis.splitLine.show = options.xSplitLineShow;
 			}
+			if(options && options.hasOwnProperty('ySplitLineShow') && typeof options.ySplitLineShow == 'boolean') {
+				settings.yAxis.splitLine.show = options.ySplitLineShow;
+			}
+			//右边超出半边长度(ps:其实是用分割线阴影实现的.默认45)
+			if(options && options.hasOwnProperty('ySplitLineLength') && typeof options.ySplitLineLength == 'number'){
+                settings.yAxis.splitLine.lineStyle.shadowOffsetX = options.ySplitLineLength ;
+             }
+			//这里处理,即要处理左边刻度实现的部分,又要处理有点阴影实现的部分.
+			if(options && options.hasOwnProperty('halfLineShow') && typeof options.halfLineShow == 'boolean') {
+				if(options.halfLineShow === false){
+					settings.yAxis.axisTick.show = false;
+					settings.yAxis.splitLine.lineStyle.shadowOffsetX = 0;
+				}
+			}		
 			//设置x轴刻度显示数据.例如1月,2月....6月.
 			if(options && options.hasOwnProperty('xData') && options.xData instanceof Array) {
 				if(options.xData.length > 0) {
@@ -488,13 +523,27 @@ define([
 						}
 					}
 				}
-			}
+			}			
 			//设置x轴数据颜色.放在数据下面再处理,是因为数据处理的时候将原来的数据清零啦.放在后面更合理.
 		 	if(options && options.hasOwnProperty('xDataTextStyle') && options.xDataTextStyle instanceof Object){
 		 		settings.xAxis.data.forEach(function(item){
 		 			$.extend(item,{textStyle: options.xDataTextStyle});
 		 		});
             }
+		 	/*
+		 	 * ps: 下面这三个值配合使用,使y轴刻度更加易读和更加美观.一般如果没有设置这三个参数,y轴会根据
+		 	 * 实际数据最小值和最大值,默认段数5进行划分.
+		 	 */
+		 	if(options && options.hasOwnProperty('ySpitNumber') && typeof options.ySpitNumber == 'number'){
+                settings.yAxis.splitNumber = options.ySpitNumber ;
+             }
+		 	if(options && options.hasOwnProperty('yMin') && typeof options.yMin == 'number'){
+                settings.yAxis.min = options.yMin ;
+             }
+		 	if(options && options.hasOwnProperty('yMax') && typeof options.yMax == 'number'){
+                settings.yAxis.max = options.yMax ;
+             }
+		 	
 		 	
               
 			
