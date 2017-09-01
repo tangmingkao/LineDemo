@@ -80,7 +80,7 @@ define([
 					gridIndex: 0,
 					boundaryGap: false,
 					position: 'bottom',
-					type: 'category',				
+					type: 'category',
 					axisLine: {
 						show: false,
 						onZero: true,
@@ -153,7 +153,7 @@ define([
 					splitNumber: 5,
 					min: 0,
 					max: 6000,
-//					nameLocation: 'end',
+					//					nameLocation: 'end',
 					axisLine: {
 						show: false,
 					},
@@ -167,7 +167,7 @@ define([
 					axisLabel: {
 						show: true,
 						margin: 25,
-						textStyle:{
+						textStyle: {
 							color: '#ccc'
 						}
 					},
@@ -181,7 +181,7 @@ define([
 							opacity: 1 //图形透明度
 						}
 					},
-					data: []			
+					data: []
 				},
 				tooltip: {
 					show: true,
@@ -197,21 +197,21 @@ define([
 					legendHoverLink: true,
 					clipOverflow: false,
 					areaStyle: {
-//						normal: {
-//							shadowBlur: 0,
-//							shadowColor: '#e53f4b',
-//							opacity: 0.1
-//						}
+						//						normal: {
+						//							shadowBlur: 0,
+						//							shadowColor: '#e53f4b',
+						//							opacity: 0.1
+						//						}
 						normal: {
-	                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-	                                    offset: 0,
-	                                    color: '#e53f4b'
-	                                }, {
-	                                    offset: 1,
-	                                    color: '#fff'
-	                                }]),
-	                                opacity: 0.5
-	                    }
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+								offset: 0,
+								color: '#e53f4b'
+							}, {
+								offset: 1,
+								color: '#fff'
+							}]),
+							opacity: 0.5
+						}
 					},
 					label: {
 						normal: {
@@ -233,21 +233,21 @@ define([
 					hoverAnimation: true,
 					legendHoverLink: true,
 					areaStyle: {
-//						normal: {
-//							shadowBlur: 0,
-//							shadowColor: '#e58a1f',
-//							opacity: 0.1
-//						}
+						//						normal: {
+						//							shadowBlur: 0,
+						//							shadowColor: '#e58a1f',
+						//							opacity: 0.1
+						//						}
 						normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#e58a1f'
-                                }, {
-                                    offset: 1,
-                                    color: '#fff'
-                                }]),
-                                opacity: 0.5
-                        }
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+								offset: 0,
+								color: '#e58a1f'
+							}, {
+								offset: 1,
+								color: '#fff'
+							}]),
+							opacity: 0.5
+						}
 					},
 					itemStyle: {
 
@@ -263,26 +263,26 @@ define([
 					hoverAnimation: true,
 					legendHoverLink: true,
 					areaStyle: {
-//						normal: {
-//							shadowBlur: 0,
-//							shadowColor: '#983ac3',
-//							opacity: 0.1
-//						}
+						//						normal: {
+						//							shadowBlur: 0,
+						//							shadowColor: '#983ac3',
+						//							opacity: 0.1
+						//						}
 						normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#983ac3'
-                                }, {
-                                    offset: 1,
-                                    color: '#fff'
-                                }]),
-                                opacity: 0.5
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+								offset: 0,
+								color: '#983ac3'
+							}, {
+								offset: 1,
+								color: '#fff'
+							}]),
+							opacity: 0.5
 						}
 					},
-					
+
 					itemStyle: {
 
-					},				
+					},
 					//系列中的数据内容数组。
 					data: [1089, 1921, 2567, 300, 4920, 5990]
 				}]
@@ -390,66 +390,14 @@ define([
 			}
 			if(options && options.hasOwnProperty('symbolOrient') && typeof options.symbolOrient == 'string') {
 				settings.legend.orient = options.symbolOrient;
-			}			
-			if(options && options.hasOwnProperty('symbolData') && options.symbolData instanceof Array) {
-				if(options.symbolData.length > 0) {
-					//如果有,就情况默认的数据.
-					settings.legend.data = [];					
-					for(var l = 0; l < options.symbolData.length; l++) {
-						settings.legend.data[l] = {
-							name: options.symbolData[l],
-							icon: tempIcon,
-							textStyle: {
-								color: '#ccc'
-							}
-						};
-						//保证settings.series[l].name的值和图例options.symbolData[l]的值一致。
-                        settings.series[l].name = options.symbolData[l];
+			}
 
-					}
-				}
+			if(options && options.hasOwnProperty('symbolItemWidth') && typeof options.symbolItemWidth == 'number') {
+				settings.legend.itemWidth = options.symbolItemWidth;
 			}
-            if(options && options.hasOwnProperty('color') && options.color instanceof Array) {
-                if(options.color.length > 0) {
-                    // var tempColorLth = options.color.length;
-					// var tempSymbolDataLth = settings.legend.data.length;
-					// var cercleTimes;
-					// if(tempColorLth > tempSymbolDataLth){
-                    //
-					// } else {
-					// 	cercleTimes = tempSymbolDataLth%tempColorLth;
-					// }
-					//由于颜色循环使用的问题，所以为了不产生错误，最好设置颜色的个数>=图例的个数.
-					//这里还有个问题，因为事先并不知道 settings.series[j]的个数。所以放在这里处理也是不恰当的。应该
-					//放在 settings.series[j]数据处理之后。
-                    for(var j = 0; j < options.color.length; j++) {
-                        settings.color[j] = options.color[j];
-                        //设置折线渐变效果，和颜色值匹配 。但是这里有个问题，颜色值是循环使用的，如果颜色值少于
-                        //图例个数的话，这种处理是不恰当的。所以把这个放到图例个数处理之后。
-                        settings.series[j].areaStyle.normal.color = new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: options.color[j]
-                        }, {
-                            offset: 1,
-                            color: '#fff'
-                        }]);
-                    }
-                }
-                //否则就用缺省的配置，正好个数一致。
-            }
-			//把图标形状和字体颜色放在数据下面再处理,先处理数据,再改图形和字体颜色.
-			var tempIcon = (options && options.hasOwnProperty('symbolIcon') && typeof options.symbolIcon == 'string') ? options.symbolIcon : 'circle';
-			var tempSymbolTextColor = (options && options.hasOwnProperty('symbolTextColor') && typeof options.symbolTextColor == 'string') ? options.symbolTextColor : '#ccc';
-			for(var m = 0; m < settings.legend.data.length; m ++){
-				settings.legend.data[m].icon = tempIcon;
-				settings.legend.data[m].textStyle.color = tempSymbolTextColor;
+			if(options && options.hasOwnProperty('symbolItemHeight') && typeof options.symbolItemHeight == 'number') {
+				settings.legend.itemHeight = options.symbolItemHeight;
 			}
-			if(options && options.hasOwnProperty('symbolItemWidth') && typeof options.symbolItemWidth == 'number'){
-                settings.legend.itemWidth = options.symbolItemWidth ;
-             }
-			if(options && options.hasOwnProperty('symbolItemHeight') && typeof options.symbolItemHeight == 'number'){
-                settings.legend.itemHeight = options.symbolItemHeight ;
-             }
 			//这两个参数慎用,容易让人产生误会.
 			if(options && options.hasOwnProperty('gridShow') && typeof options.gridShow == 'boolean') {
 				settings.grid.show = options.gridShow;
@@ -459,9 +407,9 @@ define([
 				var tempArr1 = ['left', 'bottom', 'right', 'top'];
 				if(arr1.length > 0) {
 					//进行设置前先将设置默认的取消掉,不然设置可能会没有作用.
-					for(var n = 0; n < tempArr1.length; n++){
+					for(var n = 0; n < tempArr1.length; n++) {
 						settings.grid[tempArr1[n]] = '';
-					}	
+					}
 				}
 				arr1.forEach(function(element) {
 					if(!element) {
@@ -489,32 +437,40 @@ define([
 			}
 			if(options && options.hasOwnProperty('yAxisPosition') && typeof options.yAxisPosition == 'string') {
 				settings.yAxis.position = options.yAxisPosition;
-			}		
+			}
 			if(options && options.hasOwnProperty('xAxisNameLocation') && typeof options.xAxisNameLocation == 'string') {
-				$.extend(settings.xAxis, {nameLocation: options.xAxisNameLocation});
-			}		
+				$.extend(settings.xAxis, {
+					nameLocation: options.xAxisNameLocation
+				});
+			}
 			if(options && options.hasOwnProperty('yAxisNameLocation') && typeof options.yAxisNameLocation == 'string') {
-				$.extend(settings.yAxis, {nameLocation: options.yAxisNameLocation});
-			}			
+				$.extend(settings.yAxis, {
+					nameLocation: options.yAxisNameLocation
+				});
+			}
 			if(options && options.hasOwnProperty('xAxisName') && typeof options.xAxisName == 'string') {
-				$.extend(settings.xAxis, {name: options.xAxisName});
+				$.extend(settings.xAxis, {
+					name: options.xAxisName
+				});
 			}
 			if(options && options.hasOwnProperty('yAxisName') && typeof options.yAxisName == 'string') {
-				$.extend(settings.yAxis, {name: options.yAxisName});
-			}		
+				$.extend(settings.yAxis, {
+					name: options.yAxisName
+				});
+			}
 			if(options && options.hasOwnProperty('axisTickShow') && typeof options.axisTickShow == 'boolean') {
 				settings.xAxis.axisTick.show = options.axisTickShow;
-			}			
+			}
 			//这里显示是为了兼容两边多出半边的.用刻度线代替那半边,另外一边多出的半边是用分割线的阴影实现的.
 			//若以后对半边线的长短有要求,则可以增加一个配置参数.写法类似.settings.yAxis.axisTick.length = options.yAxisTickLength;
 			if(options && options.hasOwnProperty('yAxisTickShow') && typeof options.yAxisTickShow == 'boolean') {
 				settings.yAxis.axisTick.show = options.yAxisTickShow;
 			}
 			//刻度文字和轴线距离.
-			if(options && options.hasOwnProperty('yAxisLineMargin') && typeof options.yAxisLineMargin == 'number'){
-                settings.yAxis.axisLabel.margin = options.yAxisLineMargin ;
-             }
-		
+			if(options && options.hasOwnProperty('yAxisLineMargin') && typeof options.yAxisLineMargin == 'number') {
+				settings.yAxis.axisLabel.margin = options.yAxisLineMargin;
+			}
+
 			if(options && options.hasOwnProperty('axisLineShow') && typeof options.axisLineShow == 'boolean') {
 				settings.xAxis.axisLine.show = options.axisLineShow;
 			}
@@ -525,16 +481,16 @@ define([
 				settings.yAxis.splitLine.show = options.ySplitLineShow;
 			}
 			//右边超出半边长度(ps:其实是用分割线阴影实现的.默认45)
-			if(options && options.hasOwnProperty('ySplitLineLength') && typeof options.ySplitLineLength == 'number'){
-                settings.yAxis.splitLine.lineStyle.shadowOffsetX = options.ySplitLineLength ;
-             }
+			if(options && options.hasOwnProperty('ySplitLineLength') && typeof options.ySplitLineLength == 'number') {
+				settings.yAxis.splitLine.lineStyle.shadowOffsetX = options.ySplitLineLength;
+			}
 			//这里处理,即要处理左边刻度实现的部分,又要处理有点阴影实现的部分.
 			if(options && options.hasOwnProperty('halfLineShow') && typeof options.halfLineShow == 'boolean') {
-				if(options.halfLineShow === false){
+				if(options.halfLineShow === false) {
 					settings.yAxis.axisTick.show = false;
 					settings.yAxis.splitLine.lineStyle.shadowOffsetX = 0;
 				}
-			}		
+			}
 			//设置x轴刻度显示数据.例如1月,2月....6月.
 			if(options && options.hasOwnProperty('xData') && options.xData instanceof Array) {
 				if(options.xData.length > 0) {
@@ -542,77 +498,119 @@ define([
 					for(var o = 0; o < options.xData.length; o++) {
 						settings.xAxis.data[o] = {
 							value: options.xData[o],
-							textStyle:{
+							textStyle: {
 								color: '#ccc'
 							}
 						}
 					}
 				}
-			}			
+			}
 			//设置x轴数据颜色.放在数据下面再处理,是因为数据处理的时候将原来的数据清零啦.放在后面更合理.
-		 	if(options && options.hasOwnProperty('xDataTextStyle') && options.xDataTextStyle instanceof Object){
-		 		settings.xAxis.data.forEach(function(item){
-		 			$.extend(item,{textStyle: options.xDataTextStyle});
-		 		});
-            }
-		 	/*
-		 	 * ps: 下面这三个值配合使用,使y轴刻度更加易读和更加美观.一般如果没有设置这三个参数,y轴会根据
-		 	 * 实际数据最小值和最大值,默认段数5进行划分.
-		 	 */
-		 	if(options && options.hasOwnProperty('ySpitNumber') && typeof options.ySpitNumber == 'number'){
-                settings.yAxis.splitNumber = options.ySpitNumber ;
-             }
-		 	if(options && options.hasOwnProperty('yMin') && typeof options.yMin == 'number'){
-                settings.yAxis.min = options.yMin ;
-             }
-		 	if(options && options.hasOwnProperty('yMax') && typeof options.yMax == 'number'){
-                settings.yAxis.max = options.yMax ;
-             }
-            if(options && options.hasOwnProperty('dataOptions') && options.dataOptions instanceof Object) {
-                var arr4 = Object.keys(options.dataOptions);
+			if(options && options.hasOwnProperty('xDataTextStyle') && options.xDataTextStyle instanceof Object) {
+				settings.xAxis.data.forEach(function(item) {
+					$.extend(item, {
+						textStyle: options.xDataTextStyle
+					});
+				});
+			}
+			/*
+			 * ps: 下面这三个值配合使用,使y轴刻度更加易读和更加美观.一般如果没有设置这三个参数,y轴会根据
+			 * 实际数据最小值和最大值,默认段数5进行划分.
+			 */
+			if(options && options.hasOwnProperty('ySpitNumber') && typeof options.ySpitNumber == 'number') {
+				settings.yAxis.splitNumber = options.ySpitNumber;
+			}
+			if(options && options.hasOwnProperty('yMin') && typeof options.yMin == 'number') {
+				settings.yAxis.min = options.yMin;
+			}
+			if(options && options.hasOwnProperty('yMax') && typeof options.yMax == 'number') {
+				settings.yAxis.max = options.yMax;
+			}
 
+			//数据颜色处理部分,注意处理顺序.
+			if(options && options.hasOwnProperty('symbolData') && options.symbolData instanceof Array) {				
+				if(options.symbolData.length > 0) {
+					//如果有,就情况默认的数据.
+					settings.legend.data = [];
+					settings.series = [];
+					for(var l = 0; l < options.symbolData.length; l++) {
+						settings.legend.data[l] = {
+							name: options.symbolData[l],
+							icon: 'circle',
+							textStyle: {
+								color: '#ccc'
+							}
+						};
+						//保证settings.series[l].name的值和图例options.symbolData[l]的值一致。
+						//settings.series[l].name = options.symbolData[l]; //这种处理不恰当,当配置大于上面默认配置个数3时会出错.
+						//settings.series[l] = obj2;注意不能用这种赋值,会影响原来obj2的值.
+						settings.series[l] = {};
+//						$.extend(settings.series[l], obj2);
+//						settings.series[l].name = options.symbolData[l];
+					}
+				}
+			}
+			//把图标形状和字体颜色放在数据下面再处理,先处理数据,再改图形和字体颜色.
+			var tempIcon = (options && options.hasOwnProperty('symbolIcon') && typeof options.symbolIcon == 'string') ? options.symbolIcon : 'circle';
+			var tempSymbolTextColor = (options && options.hasOwnProperty('symbolTextColor') && typeof options.symbolTextColor == 'string') ? options.symbolTextColor : '#ccc';
+			for(var m = 0; m < settings.legend.data.length; m++) {
+				settings.legend.data[m].icon = tempIcon;
+				settings.legend.data[m].textStyle.color = tempSymbolTextColor;
+			}
+			var gradientColor = [];
+			if(options && options.hasOwnProperty('color') && options.color instanceof Array) {
+				if(options.color.length > 0) {
+					//由于颜色循环使用的问题，所以为了不产生错误，最好设置颜色的个数>=图例的个数.
+					//这里还有个问题，因为事先并不知道 settings.series[j]的个数。所以放在这里处理也是不恰当的。应该
+					//放在 settings.series[j]数据处理之后。
+					settings.color = [];
+					for(var j = 0; j < options.color.length; j++) {
+						settings.color[j] = options.color[j];						
+					}
+				}
+				//否则就用缺省的配置，正好个数一致。
+			}
+			//这里取这个长度,因为settings.legend.data.length长度和颜色值长度一致.
+			for(var t = 0; t < settings.legend.data.length; t++) {
+				$.extend(settings.series[t], {
+					
+					//系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+					name: settings.legend.data[t].name,
+					type: 'line',
+					symbol: 'emptyCircle',
+					symbolSize: 8,
+					hoverAnimation: true,
+					legendHoverLink: true,
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+								offset: 0,
+								color: settings.color[t]
+							}, {
+								offset: 1,
+								color: '#fff'
+							}]),
+							opacity: 0.5
+						}
+					},
+					itemStyle: {
 
-            }
+					},
+					//系列中的数据内容数组。
+					data: [1300, 3200, 3800, 4000, 4400, 5200]
+				
+				});
+				
+			}
 
-
-
-            var obj = {
-                //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
-                name: '用例二',
-                type: 'line',
-                symbol: 'emptyCircle',
-                symbolSize: 8,
-                hoverAnimation: true,
-                legendHoverLink: true,
-                areaStyle: {
-//						normal: {
-//							shadowBlur: 0,
-//							shadowColor: '#e58a1f',
-//							opacity: 0.1
-//						}
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: '#e58a1f'
-                        }, {
-                            offset: 1,
-                            color: '#fff'
-                        }]),
-                        opacity: 0.5
-                    }
-                },
-                itemStyle: {
-
-                },
-                //系列中的数据内容数组。
-                data: [1300, 3200, 3800, 4000, 4400, 5200]
-            };
-
-              
-			
-			
-			
-			
+			if(options && options.hasOwnProperty('dataOptions') && options.dataOptions instanceof Object) {
+				var arr4 = Object.keys(options.dataOptions);
+				var tempNum = 0;
+				for(var v = 0; v < settings.legend.data.length; v++) {
+					tempNum = arr4[v];
+					settings.series[v].data = options.dataOptions[tempNum];
+				}
+			}
 			// 使用刚指定的配置项和数据显示图表。
 			myCharts.setOption(settings);
 		},
