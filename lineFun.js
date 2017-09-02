@@ -333,7 +333,7 @@ define([
 			 * 34. yMin,yMax.数据类型: number,用例:yMin: 1000,yMax: 6000.刻度的最小值和最大值.和上面的分割段数配合使用.
 			 * 35. dataOptions,数据类型：Object，用例：dataOptions：{data1：[1000,2000,3000,4000,5000],data2:[1200,1800,2200,3300,4400,5030]....data5:[...]..}
 			 *     保证dataOptions属性个数和需要的图例个数一致。即如果图例有3个，这里的属性各数也需要三个。为了下面的配置好处理，注意用data1...data6的命名规范。
-			 * 
+			 * 36. areaStyleShadowShow,数据类型: Object,用例: areaStyleShadowShow: true,默认为true,含义:是否显示折线阴影效果.
 			 */
 			if(options && options.hasOwnProperty('titleName') && typeof options.titleName == 'string') {
 				settings.title.text = options.titleName;
@@ -602,7 +602,6 @@ define([
 				});
 				
 			}
-
 			if(options && options.hasOwnProperty('dataOptions') && options.dataOptions instanceof Object) {
 				var arr4 = Object.keys(options.dataOptions);
 				var tempNum = 0;
@@ -611,6 +610,18 @@ define([
 					settings.series[v].data = options.dataOptions[tempNum];
 				}
 			}
+			//是否显示折线阴影部分.(ps:这是简单的处理,将opacity值设为0.)
+			if(options && options.hasOwnProperty('areaStyleShadowShow') && typeof options.areaStyleShadowShow == 'boolean') {
+				if(options.areaStyleShadowShow === false) {
+					for(var z = 0; z < settings.series.length; z++){	
+						settings.series[z].areaStyle.normal.opacity = 0;
+						//也可以这样处理.
+					    //$.extend(settings.series[z],{areaStyle: {}} );
+                        
+					}
+				}
+			}
+						
 			// 使用刚指定的配置项和数据显示图表。
 			myCharts.setOption(settings);
 		},
