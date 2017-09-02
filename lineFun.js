@@ -616,8 +616,7 @@ define([
 					for(var z = 0; z < settings.series.length; z++){	
 						settings.series[z].areaStyle.normal.opacity = 0;
 						//也可以这样处理.
-					    //$.extend(settings.series[z],{areaStyle: {}} );
-                        
+					    //$.extend(settings.series[z],{areaStyle: {}} );                        
 					}
 				}
 			}
